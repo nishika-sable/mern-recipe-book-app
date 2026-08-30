@@ -1,0 +1,43 @@
+services:
+  frontend:
+    build: 
+     context: ./client 
+    ports:
+      - "80:80"
+    networks:
+      - recipe-network
+
+  backend:
+    build:
+      context: ./server 
+    expose:
+        - 6001
+    environment:  
+      MONGO_URL: "${MONGO_URL}"
+      PORT: "${PORT}"
+    networks:
+      - recipe-network
+
+ 
+
+  database:
+     image: mongo:7
+     environment:
+        MONGO_INITDB_ROOT_USERNAME: "${MONGO_ROOT_USERNAME}"
+        MONGO_INITDB_ROOT_PASSWORD: "${MONGO_ROOT_PASSWORD}"
+        MONGO_INITDB_DATABASE: "${MONGO_DATABASE}"
+     volumes:
+       - mongo_data:/data/db
+     networks:
+       - recipe-network  
+       
+
+
+
+volumes: 
+  mongo_data:
+
+networks:
+  recipe-network:
+    driver: bridge
+
