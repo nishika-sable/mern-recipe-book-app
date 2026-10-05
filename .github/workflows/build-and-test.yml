@@ -1,12 +1,11 @@
 name: build and test 
-
-strategy:
-  matrix:
-    node-version: ['10.17.0', '17.9.0']
+on:
+  push:
 
 jobs:
-  build:
-    runs-on: self-hosted
+
+ build:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository 
         uses: actions/checkout@v3
@@ -14,27 +13,23 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
       
       - name: install frontend dependencies 
-        run : npm install 
-        with:
-          working-directory: ./client
+        run : npm ci
+        working-directory: ./client
 
       - name: install frontend test 
         run : npm test
-        with:
-          working-directory: ./client
-      
+        working-directory: ./client
+
       - name: install backend dependencies
-        run : npm install
-        with:
-          working-directory: ./server
+        run : npm ci
+        working-directory: ./server
 
       - name: install backend test
-        run : npm test  
-        with:
-          working-directory: ./server
+        run : npm test 
+        working-directory: ./server
 
 
 
