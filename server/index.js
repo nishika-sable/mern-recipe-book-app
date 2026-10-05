@@ -68,7 +68,12 @@ const startServer = async () => {
       console.log(error);
   }
 };
-startServer();
+
+export default app;
+
+if (process.env.NODE_ENV !== "test") {
+  startServer();
+}
 
 
 
