@@ -1,0 +1,44 @@
+name: build and test
+on: 
+  push 
+
+strategy:
+  matrix:
+    node-version: ['10.17.0', '17.9.0']
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository 
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: install frontend dependencies 
+        run : npm install 
+        with:
+          working-directory: ./client
+
+      - name: install frontend test 
+        run : npm test
+        with:
+          working-directory: ./client
+      r
+      - name: install backend dependencies
+        run : npm install
+        with:
+          working-directory: ./server
+
+      - name: install backend test
+        run : npm test  
+        with:
+          working-directory: ./server
+
+
+
+
+      
