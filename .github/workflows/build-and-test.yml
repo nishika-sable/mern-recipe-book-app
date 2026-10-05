@@ -1,6 +1,4 @@
-name: build and test
-on: 
-  push 
+name: build and test 
 
 strategy:
   matrix:
@@ -27,7 +25,7 @@ jobs:
         run : npm test
         with:
           working-directory: ./client
-      r
+      
       - name: install backend dependencies
         run : npm install
         with:
